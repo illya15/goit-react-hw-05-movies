@@ -1,15 +1,13 @@
 import getMoviesByName from 'components/Api/getMoviesByName';
-
-// import getMoviesByName  from 'components/API/getMoviesByName';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-// import { ListItem } from './HomePage.styled';
+
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
   const [queryName, setQueryName] = useState(query);
-  const [films, setFilms] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   const location = useLocation();
 
@@ -17,7 +15,7 @@ const Movies = () => {
     if (queryName) {
       getMoviesByName(queryName)
         .then(response => {
-          setFilms(response.results);
+          setMovies(response.results);
         })
         .catch(err => console.error(err));
     }
@@ -43,13 +41,16 @@ const Movies = () => {
         <button type="submit">Search</button>
       </form>
       <ul>
-        {films &&
-          films.map(film => (
-            // <ListItem key={film.id}>
-              <Link key={film.id} to={`${film.id}`} state={{ from: location }}>
-                {film.title}
-              </Link>
-            // </ListItem>
+        {movies &&
+          movies.map(film => (
+            <Link
+              key={film.id}
+              to={`${film.id}`}
+              state={{ from: location }}
+              style={{ display: 'block' }}
+            >
+              {film.title}
+            </Link>
           ))}
       </ul>
     </div>

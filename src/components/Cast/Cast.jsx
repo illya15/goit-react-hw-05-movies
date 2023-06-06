@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
-  const { filmId } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
-    getCast(filmId)
+    getCast(movieId)
       .then(response => setCast(response.cast.slice(0, 10)))
       .catch(err => console.error(err));
-  }, [filmId]);
+  }, [movieId]);
 
   return (
     <div>

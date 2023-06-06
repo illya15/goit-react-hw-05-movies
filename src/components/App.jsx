@@ -1,26 +1,39 @@
-import Home from "pages/Home";
-import Movies from "pages/Movies";
-import { Route,Routes } from "react-router-dom";
-import Cast from "./Cast/Cast";
-import Reviews from "./Reviews/Reviews";
-// API key 9134aaf09b2c139a92831aec99413f4a
+import React, { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './Layout/Layout';
+import MovieDetalis from './MovieDetalis/MovieDetalis';
+import Cast from '../components/Cast/Cast';
+import Rewievs from './Reviews/Reviews';
 
-export const App = () => {
+const Home = lazy(() => import('../pages/Home'));
+const Movies = lazy(() => import('../pages/Movies'));
+
+const App = () => {
   return (
-    // <div>
-    //   <nav>
-    //     <NavLink to="/">Home</NavLink>
-    //     <NavLink to="/movies">Colection</NavLink>
-    //   </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<div>MoviesDetal</div>}>
-          <Route path="/movies/:movieId" element={<Cast />} />
-          <Route path="/movies/:movieId" element={<Reviews/>} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <Suspense>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="movies"
+          element={
+            <Suspense>
+              <Movies />
+            </Suspense>
+          }
+        />
+        <Route path="movies/:movieId" element={<MovieDetalis />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="rewievs" element={<Rewievs />} />
         </Route>
-      </Routes>
-    // </div>
+      </Route>
+    </Routes>
   );
 };
-
+export default App;

@@ -1,12 +1,11 @@
 import getTrendMovies from 'components/Api/getTrendMovies';
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { ListItem } from './HomePage.styled';
-const HomePage = () => {
-  const [films, setFilms] = useState([]);
 
-  useEffect(() => { getTrendMovies().then(response => setFilms(response.results))
+const Home = () => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => { getTrendMovies().then(response => setMovies(response.results))
       .catch(err => console.error(err));
   }, []);
 
@@ -14,15 +13,15 @@ const HomePage = () => {
     <>
       <h1>Trending today</h1>
       <ul>
-        {films &&
-          films.map(film => (
-            // <ListItem key={film.id}>
-              <Link key={film.id} to={`movies/${film.id}`} style={{display:'block'}}>{film.title}</Link>
-            // </ListItem>
+        {movies &&
+          movies.map(movie => (
+          
+              <Link key={movie.id} to={`movies/${movie.id}`} style={{display:'block'}}>{movie.title}</Link>
+         
           ))}
       </ul>
     </>
   );
 };
 
-export default HomePage;
+export default Home;

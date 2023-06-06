@@ -1,5 +1,3 @@
-
-
 const options = {
   method: 'GET',
   headers: {
@@ -9,12 +7,10 @@ const options = {
   },
 };
 
-const getCast = (movieId) =>
+const getOneMovie = movieId =>
   fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+    `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
     options
-  )
-    .then(response => response.json())
+  ).then(response => response.json());
 
-
-export default getCast
+export default getOneMovie;
